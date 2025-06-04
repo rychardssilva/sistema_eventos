@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.2"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ParticipantController"
+      spacing="10" padding="10" prefWidth="600" prefHeight="400">
+
+    <Label text="Painel do Participante" style="-fx-font-size: 20px;" />
+    
+    <TableView fx:id="eventTable" prefHeight="350">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Nome" prefWidth="200" />
+            <TableColumn fx:id="dateColumn" text="Data" prefWidth="150" />
+            <TableColumn fx:id="timeColumn" text="Horário" prefWidth="150" />
+        </columns>
+    </TableView>
+
+</VBox>
