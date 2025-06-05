@@ -1,11 +1,10 @@
-
-
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.collections.FXCollections;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +22,13 @@ public class RegisterController {
         String email = emailField.getText();
         String password = passwordField.getText();
         String role = roleChoiceBox.getValue();
+
+        // Mapeando o valor do ChoiceBox para o ENUM do banco
+        if (role.equals("Organizador")) {
+            role = "ADMIN";
+        } else if (role.equals("Participante")) {
+            role = "PARTICIPANTE";
+        }
 
         try (Connection conn = Database.connect();
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)")) {
@@ -46,5 +52,11 @@ public class RegisterController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void initialize() {
+        // Mantendo os nomes amigáveis no ChoiceBox
+        roleChoiceBox.setItems(FXCollections.observableArrayList("Organizador", "Participante"));
     }
 }

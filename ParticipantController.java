@@ -1,9 +1,8 @@
-
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.*;
 
@@ -18,19 +17,23 @@ public class ParticipantController {
     public void initialize() {
         try (Connection conn = Database.connect();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT name, date, time FROM events")) {
+             ResultSet rs = stmt.executeQuery("SELECT name, date, time FROM events")) { // agora usando os nomes corretos
+
+            ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
             while (rs.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
-                row.add(rs.getString("name"));
-                row.add(rs.getString("date"));
-                row.add(rs.getString("time"));
-                eventTable.getItems().add(row);
+                row.add(rs.getString("name"));   // nome do evento
+                row.add(rs.getString("date"));   // data do evento
+                row.add(rs.getString("time"));   // hora do evento
+                data.add(row);
             }
 
-            nameColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().get(0)));
-            dateColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().get(1)));
-            timeColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().get(2)));
+            eventTable.setItems(data);
+
+            nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+            dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+            timeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
 
         } catch (SQLException e) {
             e.printStackTrace();

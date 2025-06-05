@@ -2,11 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.2"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="DashboardController"
-      spacing="10" padding="10" prefWidth="600" prefHeight="400">
+      spacing="10" prefWidth="600" prefHeight="400">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
 
     <Label text="Painel do Organizador" style="-fx-font-size: 20px;" />
     

@@ -3,12 +3,13 @@
 public class User {
     private String username;
     private String password;
-    private String role; // "admin" ou "participant"
+    private String role; // "ADMIN" ou "PARTICIPANTE"
 
     public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
-        this.role = role;
+        // Converter para maiúsculas para compatibilidade com o ENUM do MySQL
+        this.role = role.toUpperCase();
     }
 
     public String getUsername() {
